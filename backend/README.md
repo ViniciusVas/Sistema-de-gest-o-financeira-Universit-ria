@@ -134,6 +134,43 @@ GET http://localhost:3333/categories
 Authorization: Bearer SEU_TOKEN_JWT
 ```
 
+### Criar categoria personalizada
+
+```http
+POST http://localhost:3333/categories
+Authorization: Bearer SEU_TOKEN_JWT
+Content-Type: application/json
+```
+
+```json
+{
+  "name": "Academia",
+  "description": "Mensalidade e gastos com atividade fisica"
+}
+```
+
+### Atualizar categoria personalizada
+
+```http
+PUT http://localhost:3333/categories/ID_DA_CATEGORIA
+Authorization: Bearer SEU_TOKEN_JWT
+Content-Type: application/json
+```
+
+```json
+{
+  "name": "Saude e academia",
+  "description": "Gastos com saude, academia e bem-estar"
+}
+```
+
+### Excluir categoria personalizada
+
+```http
+DELETE http://localhost:3333/categories/ID_DA_CATEGORIA
+Authorization: Bearer SEU_TOKEN_JWT
+```
+
 ### Criar receita
 
 ```http
@@ -360,6 +397,22 @@ Retorna os meses com receitas, despesas, saldo e status da meta:
     }
   ]
 }
+```
+
+### Relatorios - resumo mensal detalhado
+
+```http
+GET http://localhost:3333/reports/monthly?month=7&year=2026
+Authorization: Bearer SEU_TOKEN_JWT
+```
+
+Retorna totais, meta, gastos por categoria, limites ultrapassados e movimentacoes do mes.
+
+### Relatorios - exportar CSV
+
+```http
+GET http://localhost:3333/reports/export?month=7&year=2026
+Authorization: Bearer SEU_TOKEN_JWT
 ```
 
 ## Enums aceitos

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { CalendarSearch, History } from "lucide-react";
 
 import AlertMessage from "../components/AlertMessage.jsx";
 import EmptyState from "../components/EmptyState.jsx";
@@ -55,14 +56,20 @@ function HistoryPage() {
               onChange={(event) => setYear(Number(event.target.value))}
             />
           </label>
-          <button className="btn btn-secondary">Filtrar</button>
+          <button className="btn btn-secondary">
+            <CalendarSearch size={18} />
+            Filtrar
+          </button>
         </form>
       </div>
 
       <AlertMessage type="error" message={error} />
 
       <section className="panel">
-        <h2 className="panel-title">Meses encontrados</h2>
+        <h2 className="panel-title">
+          <History className="title-icon" />
+          Meses encontrados
+        </h2>
         {loading ? (
           <Loading />
         ) : history.length ? (

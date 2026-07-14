@@ -11,6 +11,13 @@ function buildDateFilter(year) {
   };
 }
 
+function buildMonthDateFilter(month, year) {
+  return {
+    gte: new Date(Date.UTC(year, month - 1, 1)),
+    lt: new Date(Date.UTC(year, month, 1))
+  };
+}
+
 async function findIncomesForHistory(userId, year) {
   return prisma.income.findMany({
     where: {
@@ -51,8 +58,64 @@ async function findGoalsForHistory(userId, year) {
   });
 }
 
+async function findMonthlyIncomes(userId, month, year) {
+  return prisma.income.findMany({
+    where: {
+      userId,
+      date: buildMonthDateFilter(month, year)
+    },
+    orderBy: {
+      date: "asc"
+    }
+  });
+}
+
+async function findMonthlyExpenses(userId, month, year) {
+  return prisma.expense.findMany({
+    where: {
+      userId,
+      date: buildMonthDateFilter(month, year)
+    },
+    include: {
+      category: true
+    },
+    orderBy: {
+      date: "asc"
+    }
+  });
+}
+
+async function findMonthlyGoal(userId, month, year) {
+  return prisma.monthlyGoal.findUnique({
+    where: {
+      userId_month_year: {
+        userId,
+        month,
+        year
+      }
+    }
+  });
+}
+
+async function findMonthlyLimits(userId, month, year) {
+  return prisma.categoryLimit.findMany({
+    where: {
+      userId,
+      month,
+      year
+    },
+    include: {
+      category: true
+    }
+  });
+}
+
 module.exports = {
   findExpensesForHistory,
   findGoalsForHistory,
-  findIncomesForHistory
+  findIncomesForHistory,
+  findMonthlyExpenses,
+  findMonthlyGoal,
+  findMonthlyIncomes,
+  findMonthlyLimits
 };

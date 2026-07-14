@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserPlus } from "lucide-react";
 
 import AlertMessage from "../components/AlertMessage.jsx";
 import { useAuth } from "../hooks/useAuth.jsx";
@@ -88,6 +89,7 @@ function RegisterPage() {
             />
           </label>
           <button className="btn btn-primary" disabled={loading}>
+            <UserPlus size={18} />
             {loading ? "Cadastrando..." : "Cadastrar"}
           </button>
         </form>

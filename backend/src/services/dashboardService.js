@@ -31,18 +31,18 @@ function getLimitMessage(status, categoryName, percentageUsed) {
   const rounded = Math.round(percentageUsed);
 
   if (status === "exceeded") {
-    return `Limit for ${categoryName} was exceeded.`;
+    return `O limite de ${categoryName} foi ultrapassado.`;
   }
 
   if (status === "high_risk") {
-    return `High risk: ${categoryName} reached ${rounded}% of the limit.`;
+    return `Risco alto: ${categoryName} chegou a ${rounded}% do limite.`;
   }
 
   if (status === "attention") {
-    return `Attention: ${categoryName} reached ${rounded}% of the limit.`;
+    return `Atenção: ${categoryName} chegou a ${rounded}% do limite.`;
   }
 
-  return `${categoryName} is within the planned limit.`;
+  return `${categoryName} está dentro do limite planejado.`;
 }
 
 async function getDashboardBase(userId, query) {

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { AlertTriangle, BarChart3, PieChart as PieChartIcon, Target } from "lucide-react";
 import {
   Bar,
   BarChart,
@@ -87,7 +88,10 @@ function DashboardPage() {
 
           <div className="grid-2">
             <section className="panel chart-box">
-              <h2 className="panel-title">Gastos por categoria</h2>
+              <h2 className="panel-title">
+                <PieChartIcon className="title-icon" />
+                Gastos por categoria
+              </h2>
               {categoryData.length ? (
                 <ResponsiveContainer width="100%" height={280}>
                   <PieChart>
@@ -113,7 +117,10 @@ function DashboardPage() {
             </section>
 
             <section className="panel chart-box">
-              <h2 className="panel-title">Receitas e despesas</h2>
+              <h2 className="panel-title">
+                <BarChart3 className="title-icon" />
+                Receitas e despesas
+              </h2>
               <ResponsiveContainer width="100%" height={280}>
                 <BarChart
                   data={[
@@ -138,7 +145,10 @@ function DashboardPage() {
 
           <div className="grid-2">
             <section className="panel">
-              <h2 className="panel-title">Meta mensal</h2>
+              <h2 className="panel-title">
+                <Target className="title-icon" />
+                Meta mensal
+              </h2>
               {summary?.goal ? (
                 <div className="form-grid">
                   <div className="form-actions">
@@ -163,7 +173,10 @@ function DashboardPage() {
             </section>
 
             <section className="panel">
-              <h2 className="panel-title">Alertas de limite</h2>
+              <h2 className="panel-title">
+                <AlertTriangle className="title-icon" />
+                Alertas de limite
+              </h2>
               {alerts.length ? (
                 <div className="limit-list">
                   {alerts.map((alert) => (

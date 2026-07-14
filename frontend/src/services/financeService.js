@@ -8,6 +8,17 @@ export const categoriesApi = {
   async list() {
     const response = await api.get("/categories");
     return unwrap(response.data, "categories");
+  },
+  async create(payload) {
+    const response = await api.post("/categories", payload);
+    return response.data?.category ?? response.data;
+  },
+  async update(id, payload) {
+    const response = await api.put(`/categories/${id}`, payload);
+    return response.data?.category ?? response.data;
+  },
+  async remove(id) {
+    await api.delete(`/categories/${id}`);
   }
 };
 
@@ -93,8 +104,19 @@ export const dashboardApi = {
 };
 
 export const reportsApi = {
+  async monthlyReport(params) {
+    const response = await api.get("/reports/monthly", { params });
+    return response.data;
+  },
   async monthlyHistory(params) {
     const response = await api.get("/reports/monthly-history", { params });
+    return response.data;
+  },
+  async exportMonthlyReport(params) {
+    const response = await api.get("/reports/export", {
+      params,
+      responseType: "blob"
+    });
     return response.data;
   }
 };

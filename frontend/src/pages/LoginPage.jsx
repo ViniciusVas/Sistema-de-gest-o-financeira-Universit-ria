@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { LogIn } from "lucide-react";
 
 import AlertMessage from "../components/AlertMessage.jsx";
 import { useAuth } from "../hooks/useAuth.jsx";
@@ -68,6 +69,7 @@ function LoginPage() {
             />
           </label>
           <button className="btn btn-primary" disabled={loading}>
+            <LogIn size={18} />
             {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>

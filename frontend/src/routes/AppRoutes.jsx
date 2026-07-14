@@ -12,6 +12,7 @@ import NotFoundPage from "../pages/NotFoundPage.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import ProfilePage from "../pages/ProfilePage.jsx";
 import RegisterPage from "../pages/RegisterPage.jsx";
+import ReportsPage from "../pages/ReportsPage.jsx";
 
 function AppRoutes() {
   return (
@@ -26,6 +27,7 @@ function AppRoutes() {
           <Route path="/expenses" element={<ExpensesPage />} />
           <Route path="/categories-limits" element={<CategoriesLimitsPage />} />
           <Route path="/goals" element={<GoalsPage />} />
+          <Route path="/reports" element={<ReportsPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>

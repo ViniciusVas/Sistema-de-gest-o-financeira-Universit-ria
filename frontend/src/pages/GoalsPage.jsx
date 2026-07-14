@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { ListChecks, Save, Target } from "lucide-react";
 
 import AlertMessage from "../components/AlertMessage.jsx";
 import EmptyState from "../components/EmptyState.jsx";
@@ -93,7 +94,10 @@ function GoalsPage() {
 
       <div className="grid-2">
         <section className="panel">
-          <h2 className="panel-title">Meta do período</h2>
+          <h2 className="panel-title">
+            <Target className="title-icon" />
+            Meta do período
+          </h2>
           <form className="form-grid" onSubmit={handleSubmit}>
             <label>
               Valor da meta
@@ -107,6 +111,7 @@ function GoalsPage() {
               />
             </label>
             <button className="btn btn-primary" disabled={saving}>
+              <Save size={18} />
               {saving ? "Salvando..." : "Salvar meta"}
             </button>
           </form>
@@ -141,7 +146,10 @@ function GoalsPage() {
       </div>
 
       <section className="panel">
-        <h2 className="panel-title">Metas cadastradas</h2>
+        <h2 className="panel-title">
+          <ListChecks className="title-icon" />
+          Metas cadastradas
+        </h2>
         {loading ? (
           <Loading />
         ) : goals.length ? (

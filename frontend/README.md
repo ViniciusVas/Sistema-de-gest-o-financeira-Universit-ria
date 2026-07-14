@@ -11,8 +11,11 @@ Frontend MVP em React, React Router DOM, Axios, CSS e Recharts.
 - Receitas: `GET /incomes`, `POST /incomes`, `PUT /incomes/:id`, `DELETE /incomes/:id`
 - Despesas: `GET /expenses`, `POST /expenses`, `PUT /expenses/:id`, `DELETE /expenses/:id`
 - Categorias: `GET /categories`
+- Categorias personalizadas: `POST /categories`, `PUT /categories/:id`, `DELETE /categories/:id`
 - Limites: `GET /category-limits`, `POST /category-limits`, `PUT /category-limits/:id`
 - Metas: `GET /monthly-goals`, `POST /monthly-goals`, `PUT /monthly-goals/:id`
+- Relatório mensal: `GET /reports/monthly`
+- Exportação CSV: `GET /reports/export`
 - Histórico: `GET /reports/monthly-history`
 - Perfil financeiro opcional: `GET /financial-profile`
 
@@ -63,14 +66,15 @@ npm run build
 2. Rode o frontend com `npm run dev`.
 3. Acesse `http://localhost:5173/register` e crie um usuário.
 4. Faça login em `http://localhost:5173/login`.
-5. Abra `Categorias e limites` para confirmar as categorias padrão.
+5. Abra `Categorias e limites` para confirmar as categorias padrão e cadastrar uma categoria personalizada.
 6. Cadastre uma meta mensal em `Metas`.
 7. Cadastre limites por categoria em `Limites`.
 8. Cadastre receitas em `Receitas`.
 9. Cadastre despesas em `Despesas`.
 10. Volte ao `Dashboard` para conferir totais, gráfico e alertas.
-11. Abra `Histórico` para consultar o resumo mensal.
-12. Use `Sair` para testar logout e proteção das rotas privadas.
+11. Abra `Relatórios` para consultar o resumo detalhado e exportar CSV.
+12. Abra `Histórico` para consultar a evolução mensal.
+13. Use `Sair` para testar logout e proteção das rotas privadas.
 
 ## Possíveis ajustes de campos
 
@@ -80,6 +84,7 @@ O frontend foi implementado para os campos do backend MVP:
 - Despesa: `description`, `amount`, `date`, `categoryId`, `expenseType`, `paymentMethod`, `isRecurring`, `notes`
 - Meta: `month`, `year`, `targetAmount`
 - Limite: `categoryId`, `month`, `year`, `limitAmount`
+- Categoria personalizada: `name`, `description`
 
 Enums usados:
 

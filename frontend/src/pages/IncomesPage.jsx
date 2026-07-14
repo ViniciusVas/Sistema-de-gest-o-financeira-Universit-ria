@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { List, Pencil, Plus, Save, Trash2, Wallet, X } from "lucide-react";
 
 import AlertMessage from "../components/AlertMessage.jsx";
 import EmptyState from "../components/EmptyState.jsx";
@@ -141,7 +142,10 @@ function IncomesPage() {
 
       <div className="grid-2">
         <section className="panel">
-          <h2 className="panel-title">{editingId ? "Editar receita" : "Nova receita"}</h2>
+          <h2 className="panel-title">
+            <Wallet className="title-icon" />
+            {editingId ? "Editar receita" : "Nova receita"}
+          </h2>
           <form className="form-grid" onSubmit={handleSubmit}>
             <label>
               Descrição
@@ -193,10 +197,12 @@ function IncomesPage() {
             </label>
             <div className="form-actions">
               <button className="btn btn-primary" disabled={saving}>
+                {editingId ? <Save size={18} /> : <Plus size={18} />}
                 {saving ? "Salvando..." : editingId ? "Salvar edição" : "Cadastrar"}
               </button>
               {editingId ? (
                 <button type="button" className="btn btn-secondary" onClick={resetForm}>
+                  <X size={18} />
                   Cancelar
                 </button>
               ) : null}
@@ -215,8 +221,11 @@ function IncomesPage() {
         </section>
       </div>
 
-      <section className="panel">
-        <h2 className="panel-title">Receitas cadastradas</h2>
+        <section className="panel">
+          <h2 className="panel-title">
+            <List className="title-icon" />
+            Receitas cadastradas
+          </h2>
         {loading ? (
           <Loading />
         ) : incomes.length ? (
@@ -243,9 +252,11 @@ function IncomesPage() {
                     <td>
                       <div className="table-actions">
                         <button className="btn btn-secondary" type="button" onClick={() => startEdit(income)}>
+                          <Pencil size={16} />
                           Editar
                         </button>
                         <button className="btn btn-danger" type="button" onClick={() => handleDelete(income.id)}>
+                          <Trash2 size={16} />
                           Excluir
                         </button>
                       </div>

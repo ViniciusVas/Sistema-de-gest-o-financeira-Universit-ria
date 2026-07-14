@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Filter, List, Pencil, Plus, ReceiptText, Save, Trash2, X } from "lucide-react";
 
 import AlertMessage from "../components/AlertMessage.jsx";
 import EmptyState from "../components/EmptyState.jsx";
@@ -177,7 +178,10 @@ function ExpensesPage() {
 
       <div className="grid-2">
         <section className="panel">
-          <h2 className="panel-title">{editingId ? "Editar despesa" : "Nova despesa"}</h2>
+          <h2 className="panel-title">
+            <ReceiptText className="title-icon" />
+            {editingId ? "Editar despesa" : "Nova despesa"}
+          </h2>
           <form className="form-grid" onSubmit={handleSubmit}>
             <label>
               Descrição
@@ -270,10 +274,12 @@ function ExpensesPage() {
             </label>
             <div className="form-actions">
               <button className="btn btn-primary" disabled={saving}>
+                {editingId ? <Save size={18} /> : <Plus size={18} />}
                 {saving ? "Salvando..." : editingId ? "Salvar edição" : "Cadastrar"}
               </button>
               {editingId ? (
                 <button type="button" className="btn btn-secondary" onClick={resetForm}>
+                  <X size={18} />
                   Cancelar
                 </button>
               ) : null}
@@ -282,7 +288,10 @@ function ExpensesPage() {
         </section>
 
         <section className="panel">
-          <h2 className="panel-title">Filtros</h2>
+          <h2 className="panel-title">
+            <Filter className="title-icon" />
+            Filtros
+          </h2>
           <div className="form-grid">
             <label>
               Categoria
@@ -329,7 +338,10 @@ function ExpensesPage() {
       </div>
 
       <section className="panel">
-        <h2 className="panel-title">Despesas cadastradas</h2>
+        <h2 className="panel-title">
+          <List className="title-icon" />
+          Despesas cadastradas
+        </h2>
         {loading ? (
           <Loading />
         ) : expenses.length ? (
@@ -362,9 +374,11 @@ function ExpensesPage() {
                     <td>
                       <div className="table-actions">
                         <button className="btn btn-secondary" type="button" onClick={() => startEdit(expense)}>
+                          <Pencil size={16} />
                           Editar
                         </button>
                         <button className="btn btn-danger" type="button" onClick={() => handleDelete(expense.id)}>
+                          <Trash2 size={16} />
                           Excluir
                         </button>
                       </div>
