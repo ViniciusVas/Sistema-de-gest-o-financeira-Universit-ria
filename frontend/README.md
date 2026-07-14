@@ -7,6 +7,7 @@ Frontend MVP em React, React Router DOM, Axios, CSS e Recharts.
 - Cadastro: `POST /auth/register`
 - Login: `POST /auth/login`
 - Sessão: `GET /auth/me`
+- Perfil financeiro: `GET /financial-profile`, `POST /financial-profile`, `PUT /financial-profile`
 - Dashboard: `GET /dashboard/monthly-summary`, `GET /dashboard/category-expenses`, `GET /dashboard/alerts`
 - Receitas: `GET /incomes`, `POST /incomes`, `PUT /incomes/:id`, `DELETE /incomes/:id`
 - Despesas: `GET /expenses`, `POST /expenses`, `PUT /expenses/:id`, `DELETE /expenses/:id`
@@ -66,15 +67,16 @@ npm run build
 2. Rode o frontend com `npm run dev`.
 3. Acesse `http://localhost:5173/register` e crie um usuário.
 4. Faça login em `http://localhost:5173/login`.
-5. Abra `Categorias e limites` para confirmar as categorias padrão e cadastrar uma categoria personalizada.
-6. Cadastre uma meta mensal em `Metas`.
-7. Cadastre limites por categoria em `Limites`.
-8. Cadastre receitas em `Receitas`.
-9. Cadastre despesas em `Despesas`.
-10. Volte ao `Dashboard` para conferir totais, gráfico e alertas.
-11. Abra `Relatórios` para consultar o resumo detalhado e exportar CSV.
-12. Abra `Histórico` para consultar a evolução mensal.
-13. Use `Sair` para testar logout e proteção das rotas privadas.
+5. Abra `Perfil` e preencha universidade, curso, previsão de término e dados financeiros.
+6. Abra `Categorias e limites` para confirmar as categorias padrão e cadastrar uma categoria personalizada.
+7. Cadastre uma meta mensal em `Metas`.
+8. Cadastre limites por categoria em `Limites`.
+9. Cadastre receitas em `Receitas`.
+10. Cadastre despesas em `Despesas`.
+11. Volte ao `Dashboard` para conferir totais, gráfico e alertas.
+12. Abra `Relatórios` para consultar o resumo detalhado e exportar CSV.
+13. Abra `Histórico` para consultar a evolução mensal.
+14. Use `Sair` para testar logout e proteção das rotas privadas.
 
 ## Possíveis ajustes de campos
 
@@ -85,6 +87,7 @@ O frontend foi implementado para os campos do backend MVP:
 - Meta: `month`, `year`, `targetAmount`
 - Limite: `categoryId`, `month`, `year`, `limitAmount`
 - Categoria personalizada: `name`, `description`
+- Perfil financeiro: `incomeType`, `estimatedMonthlyIncome`, `financialGoal`, `defaultSavingGoal`, `fixedExpensesNotes`, `university`, `course`, `expectedGraduation`
 
 Enums usados:
 

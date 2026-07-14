@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   BarChart3,
@@ -5,6 +6,8 @@ import {
   History,
   LayoutDashboard,
   LogOut,
+  PanelLeftClose,
+  PanelLeftOpen,
   ReceiptText,
   Tags,
   Target,
@@ -28,35 +31,59 @@ const navItems = [
 function AppLayout() {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
+    () => localStorage.getItem("finance_sidebar_collapsed") === "true"
+  );
 
   function handleLogout() {
     logout();
     navigate("/login", { replace: true });
   }
 
+  function toggleSidebar() {
+    setIsSidebarCollapsed((current) => {
+      const next = !current;
+      localStorage.setItem("finance_sidebar_collapsed", String(next));
+      return next;
+    });
+  }
+
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${isSidebarCollapsed ? "sidebar-collapsed" : ""}`}>
       <aside className="sidebar">
-        <div className="brand">
-          <strong>
-            <BarChart3 size={22} />
-            Finanças
-          </strong>
-          <span>Universitário</span>
+        <div className="sidebar-header">
+          <div className="brand">
+            <strong>
+              <BarChart3 size={22} />
+              <span className="brand-text">Finanças</span>
+            </strong>
+            <span className="brand-subtitle">Universitário</span>
+          </div>
+          <button
+            className="sidebar-toggle"
+            type="button"
+            onClick={toggleSidebar}
+            aria-label={isSidebarCollapsed ? "Expandir barra lateral" : "Recolher barra lateral"}
+            title={isSidebarCollapsed ? "Expandir barra lateral" : "Recolher barra lateral"}
+          >
+            {isSidebarCollapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+          </button>
         </div>
+
         <nav className="nav-list">
           {navItems.map((item) => {
             const Icon = item.icon;
 
             return (
-              <NavLink key={item.to} to={item.to}>
+              <NavLink key={item.to} to={item.to} title={item.label}>
                 <Icon size={18} />
-                {item.label}
+                <span className="nav-label">{item.label}</span>
               </NavLink>
             );
           })}
         </nav>
       </aside>
+
       <div className="main-area">
         <header className="topbar">
           <div>

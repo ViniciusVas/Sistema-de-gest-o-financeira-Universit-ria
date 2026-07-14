@@ -127,6 +127,34 @@ GET http://localhost:3333/auth/me
 Authorization: Bearer SEU_TOKEN_JWT
 ```
 
+### Buscar perfil financeiro
+
+```http
+GET http://localhost:3333/financial-profile
+Authorization: Bearer SEU_TOKEN_JWT
+```
+
+### Criar ou atualizar perfil financeiro
+
+```http
+PUT http://localhost:3333/financial-profile
+Authorization: Bearer SEU_TOKEN_JWT
+Content-Type: application/json
+```
+
+```json
+{
+  "incomeType": "Estágio",
+  "estimatedMonthlyIncome": 1200,
+  "financialGoal": "Economizar para comprar um notebook",
+  "defaultSavingGoal": 200,
+  "fixedExpensesNotes": "Transporte, internet e alimentação",
+  "university": "Universidade Federal",
+  "course": "Sistemas de Informação",
+  "expectedGraduation": "2027-12-01"
+}
+```
+
 ### Listar categorias padrao
 
 ```http

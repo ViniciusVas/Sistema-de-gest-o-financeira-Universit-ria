@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LogIn } from "lucide-react";
+import { Eye, EyeOff, LogIn } from "lucide-react";
 
 import AlertMessage from "../components/AlertMessage.jsx";
 import { useAuth } from "../hooks/useAuth.jsx";
@@ -13,6 +13,7 @@ function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   function updateField(field, value) {
     setForm((current) => ({ ...current, [field]: value }));
@@ -61,12 +62,23 @@ function LoginPage() {
           </label>
           <label>
             Senha
-            <input
-              type="password"
-              value={form.password}
-              onChange={(event) => updateField("password", event.target.value)}
-              required
-            />
+            <div className="password-field">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={form.password}
+                onChange={(event) => updateField("password", event.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="icon-button"
+                onClick={() => setShowPassword((current) => !current)}
+                aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                title={showPassword ? "Ocultar senha" : "Mostrar senha"}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </label>
           <button className="btn btn-primary" disabled={loading}>
             <LogIn size={18} />

@@ -27,6 +27,7 @@ model User {
   name           String
   email          String          @unique
   passwordHash   String          @map("password_hash")
+  financialProfile FinancialProfile?
   incomes        Income[]
   expenses       Expense[]
   categories     Category[]
@@ -36,6 +37,24 @@ model User {
   updatedAt      DateTime        @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+model FinancialProfile {
+  id                     String   @id @default(uuid())
+  userId                 String   @unique @map("user_id")
+  incomeType             String?  @map("income_type")
+  estimatedMonthlyIncome Decimal? @map("estimated_monthly_income") @db.Decimal(12, 2)
+  financialGoal          String?  @map("financial_goal")
+  defaultSavingGoal      Decimal? @map("default_saving_goal") @db.Decimal(12, 2)
+  fixedExpensesNotes     String?  @map("fixed_expenses_notes")
+  university             String?
+  course                 String?
+  expectedGraduation     DateTime? @map("expected_graduation")
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  @@map("financial_profiles")
 }
 
 model Category {

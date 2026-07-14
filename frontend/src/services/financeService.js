@@ -124,6 +124,12 @@ export const reportsApi = {
 export const profileApi = {
   async financialProfile() {
     const response = await api.get("/financial-profile");
+    return Object.prototype.hasOwnProperty.call(response.data, "profile")
+      ? response.data.profile
+      : response.data;
+  },
+  async saveFinancialProfile(payload) {
+    const response = await api.put("/financial-profile", payload);
     return response.data?.profile ?? response.data;
   }
 };
