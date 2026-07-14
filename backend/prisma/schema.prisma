@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ExpenseType {
+  FIXED
+  VARIABLE
+}
+
+enum PaymentMethod {
+  CASH
+  PIX
+  DEBIT_CARD
+  CREDIT_CARD
+  BANK_SLIP
+  BANK_TRANSFER
+  OTHER
+}
+
+model User {
+  id             String          @id @default(uuid())
+  name           String
+  email          String          @unique
+  passwordHash   String          @map("password_hash")
+  incomes        Income[]
+  expenses       Expense[]
+  categories     Category[]
+  monthlyGoals   MonthlyGoal[]
+  categoryLimits CategoryLimit[]
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Category {
+  id             String          @id @default(uuid())
+  userId         String?         @map("user_id")
+  name           String
+  description    String?
+  isDefault      Boolean         @default(false) @map("is_default")
+  user           User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expenses       Expense[]
+  categoryLimits CategoryLimit[]
+  createdAt      DateTime        @default(now()) @map("created_at")
+
+  @@unique([userId, name])
+  @@index([isDefault])
+  @@map("categories")
+}
+
+model Income {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  description String
+  amount      Decimal  @db.Decimal(12, 2)
+  date        DateTime
+  source      String?
+  isRecurring Boolean  @default(false) @map("is_recurring")
+  notes       String?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([userId, date])
+  @@map("incomes")
+}
+
+model Expense {
+  id            String        @id @default(uuid())
+  userId        String        @map("user_id")
+  categoryId    String        @map("category_id")
+  description   String
+  amount        Decimal       @db.Decimal(12, 2)
+  date          DateTime
+  expenseType   ExpenseType   @map("expense_type")
+  paymentMethod PaymentMethod @map("payment_method")
+  isRecurring   Boolean       @default(false) @map("is_recurring")
+  notes         String?
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category      Category      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  @@index([userId, date])
+  @@index([userId, categoryId])
+  @@map("expenses")
+}
+
+model MonthlyGoal {
+  id           String   @id @default(uuid())
+  userId       String   @map("user_id")
+  month        Int
+  year         Int
+  targetAmount Decimal  @map("target_amount") @db.Decimal(12, 2)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, month, year])
+  @@index([userId, year, month])
+  @@map("monthly_goals")
+}
+
+model CategoryLimit {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  categoryId  String   @map("category_id")
+  month       Int
+  year        Int
+  limitAmount Decimal  @map("limit_amount") @db.Decimal(12, 2)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, categoryId, month, year])
+  @@index([userId, year, month])
+  @@map("category_limits")
+}
